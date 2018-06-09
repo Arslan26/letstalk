@@ -1,12 +1,17 @@
 <html>
 	<title>Lets Talk</title>
+	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; img-src * data: content:; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+	</head>
 	<body>
 		<!-- login page -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<div w3-include-html="components/login.html"></div>
+		<script type="text/javascript" src="js/notify.min.js"></script>
 	</body>
 
 	<script>
-
+		var serverUrl = "http://talentchases.com/letstalk/";
 		function includeHTML() {
 		  var z, i, elmnt, file, xhttp;
 		  /*loop through a collection of all HTML elements:*/
@@ -36,5 +41,73 @@
 		}
 
 		includeHTML();
+
+		// signup call
+		jQuery(document).on('submit','.sign-up-htm', function(e){
+        	e.preventDefault();
+        	var formData = new FormData(this);
+        	var ref = $(this);
+			$.support.cors=true;
+			$.ajax({
+				url:serverUrl+"user/signup",
+				type:"POST",
+				data:formData,
+				contentType: false,
+		        cache: false, 
+		        crossDomain:true,
+		        processData:false,
+		        beforeSend:function(){
+		          
+		        },
+		        success: function( data ) {
+		        	response = JSON.parse(data)
+		        	if(response['isSuccess']){
+		        		ref.find('input').val("");
+		        		notify(response['data'], 'success')
+		        		$('.sign-in').trigger('click');
+		        	}
+
+		          console.log(data)
+		        },
+		        error:function(data){
+		          console.log(data);
+		        }	
+			});
+		})
+
+
+		function notify(msg, type = 'success'){
+			$.notify(msg, {
+			  // whether to hide the notification on click
+			  clickToHide: true,
+			  // whether to auto-hide the notification
+			  autoHide: true,
+			  // if autoHide, hide after milliseconds
+			  autoHideDelay: 5000,
+			  // show the arrow pointing at the element
+			  arrowShow: true,
+			  // arrow size in pixels
+			  arrowSize: 5,
+			  // position defines the notification position though uses the defaults below
+			  position: 'top center',
+			  // default positions
+			  elementPosition: 'top center',
+			  globalPosition: 'top center',
+			  // default style
+			  style: 'bootstrap',
+			  // default class (string or [string])
+			  className: type,
+			  // show animation
+			  showAnimation: 'slideDown',
+			  // show animation duration
+			  showDuration: 400,
+			  // hide animation
+			  hideAnimation: 'slideUp',
+			  // hide animation duration
+			  hideDuration: 200,
+			  // padding between element and notification
+			  gap: 2
+			});
+		}
 </script>
 </html>

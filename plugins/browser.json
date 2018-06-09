@@ -13,9 +13,6 @@
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.phonegap.letstalk"
         },
-        "cordova-plugin-media-capture": {
-            "PACKAGE_NAME": "com.phonegap.letstalk"
-        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.phonegap.letstalk"
         },
@@ -31,10 +28,10 @@
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.phonegap.letstalk"
         },
-        "cordova-plugin-network-information": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.phonegap.letstalk"
         },
-        "cordova-plugin-vibration": {
+        "cordova-plugin-media-capture": {
             "PACKAGE_NAME": "com.phonegap.letstalk"
         }
     },
