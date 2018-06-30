@@ -1,0 +1,128 @@
+<style>
+	.pad12{padding: 12px;}
+	.pad-top-btm {padding-top:12px;padding-bottom: 12px}
+	.basic-pos{position: relative;float:left;width:100%;}
+	.nav-tabs li {padding-top: 12px;padding-bottom: 12px;width: 33.3%;text-align: center;}
+	img.round{ border-radius: 100%;}
+	img.r50{width: 50px;height: 50px;}
+	img.r24{width: 24px;height: 24px;}
+	.tab-content li, .search-frnd-result li{border-bottom: 1px solid #38476f;padding: 12px;
+    background-color: white;color: black;}
+	.nav-tabs li.active{border-bottom: 2px solid white;}
+	.quick-act{
+      position: absolute;right: 7px;bottom: 30px;padding: 12px;background-color: #38476f;
+    border-radius: 100%;color: white;}
+    .quick-act:hover{border:5px solid #38476f;}
+    #options{right:0;left:auto;min-width: 25px;}
+    .user-chat-wrap{list-style-type: none;color:green; background-color: white;padding:12px;
+    height: 200px; border-radius: 5px; margin-bottom: 2px;    overflow-y: scroll;}
+    .user-chat-wrap li{background-color: #ececec; border: 1px solid #ececec;
+    border-radius: 5px; padding: 2px 5px;margin: 4px 0;width:100%;}
+    .chat-window textarea{padding: 5px 35px 35px 5px;}
+    .msg-send{position: absolute; right: 4px; bottom: 28px; background-color: #38476f;}
+</style>
+<div class="main-listings basic-pos">
+	<div class="top-menu basic-pos">
+		<div class="app-title pull-left">Lets Talk</div>
+		<div class="menu-opt pull-right">
+			<div class="dropdown">
+			  <a class="pad12 opt-btn"><i class="fa fa-ellipsis-v"></i></a>
+			  <div class="dropdown-menu" id="options" aria-labelledby="dropdownMenuLink">
+			    <a class="dropdown-item logout">Logout</a>
+			  </div>
+
+			</div>
+		</div>
+		<div class="search pull-right"><a class="pad12"><i class="fa fa-search"></i></a></div>
+	</div>
+	<div class="main-menus basic-pos pad-top-btm">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#chat" class="chat-menu">Chat</a></li>
+			<li><a data-toggle="tab" href="#status" class="chat-menu">Status</a></li>
+			<li><a data-toggle="tab" href="#groups" class="chat-menu">Groups</a></li>
+		</ul>
+		<div class="tab-content">
+		    <div id="chat" class="tab-pane in active">
+		    	<div class="pad-top-btm chat-wrapper open-chat" style="list-style-type: none;">
+		    		<li>
+		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<span>Loading <i class="fa fa-spinner fa-spin"></i></span>
+		    		</li>
+		    	</div>
+		    	<div class="quick-act wrt-msg"><i class="fa fa-envelope"></i></div>
+		    </div>
+		    <div id="status" class="tab-pane">
+		    	<div class="pad-top-btm" style="list-style-type: none;">
+		    		<li>
+		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<span>Status 1</span>
+		    		</li>
+		    		<li>
+		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<span>Statu 2</span>
+		    		</li>
+		    		<li>
+		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<span>Status 3</span>
+		    		</li>
+		    	</div>
+		    </div>
+		    <div id="groups" class="tab-pane">
+		    	<div class="pad-top-btm" style="list-style-type: none;">
+		    		<li>
+		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<span>Group 1</span>
+		    		</li>
+		    		<li>
+		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<span>Group 2</span>
+		    		</li>
+		    		<li>
+		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<span>Group 3</span>
+		    		</li>
+		    	</div>
+		    </div>
+		</div>
+	</div>
+</div>
+
+<!-- find contact view -->
+<div class="find-contact basic-pos" style="display:none">
+	<div class="top-menu basic-pos">
+		<div class="app-title pull-left">
+			<a class="back-to-main"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;</a> Find A Friend
+		</div>
+		<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
+		<div class="search pull-right"><a class="pad12"><i class="fa fa-user-plus"></i></a></div>
+	</div>
+	<div class="main-menus basic-pos pad-top-btm">
+    	<div class="pad-top-btm" style="list-style-type: none;">
+    		<input type="text" name="search_friend" class="form-control" placeholder="Search Here" />
+    		<div class="search-frnd-result open-chat" style="list-style-type: none;">
+	    		
+		    </div>
+    	</div>
+	</div>
+</div>
+
+
+<!-- chat view -->
+<div class="friend-chat basic-pos" style="display:none">
+	<div class="top-menu basic-pos">
+		<div class="chat-receiver pull-left">
+			<a data-id="" class="back-to-main"><img src="img/Tulips.jpg" class="round r24" />&nbsp;&nbsp;&nbsp; <span>Arslan</span></a>
+		</div>
+		<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
+		<div class="search pull-right"><a class="pad12"><i class="fa fa-user-plus"></i></a></div>
+	</div>
+	<div class="main-menus chat-window basic-pos pad-top-btm">
+    	<div class="pad-top-btm" style="list-style-type: none;">
+    		<div class="user-chat-wrap" style="list-style-type: none;">
+	    		
+		    </div>
+    		<textarea class="form-control" placeholder="Write Message"></textarea>
+    		<a class="btn msg-send"><i class="fa fa-send"></i></a>
+    	</div>
+	</div>
+</div>

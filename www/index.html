@@ -1,25 +1,198 @@
 <html>
 	<title>Lets Talk</title>
 	<head>
-		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; img-src * data: content:; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; img-src * data: content:; script-src * 'unsafe-inline' 'unsafe-eval'">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	</head>
 	<body>
-		<!-- login page -->
+		<style>
+			body{
+				margin:0;
+				color:#6a6f8c;
+				background:#c8c8c8;
+				font:600 16px/18px 'Open Sans',sans-serif;
+			}
+			*,:after,:before{box-sizing:border-box}
+			.clearfix:after,.clearfix:before{content:'';display:table}
+			.clearfix:after{clear:both;display:block}
+			a{color:inherit;text-decoration:none}
+
+			.login-wrap{
+				width:100%;
+				margin:auto;
+				max-width:525px;
+				min-height:670px;
+				color:white;
+				position:relative;
+				/*background:url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;*/
+				background:rgba(40,57,101,.9);
+				box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+			}
+			.login-html{
+				width:100%;
+				height:100%;
+				position:absolute;
+				padding:50px 50px 50px 50px;
+			}
+			.login-html .sign-in-htm,
+			.login-html .sign-up-htm{
+				top:0;
+				left:0;
+				right:0;
+				bottom:0;
+				position:absolute;
+				transform:rotateY(180deg);
+				backface-visibility:hidden;
+				transition:all .4s linear;
+			}
+			.login-html .sign-in,
+			.login-html .sign-up,
+			.login-form .group .check{
+				display:none;
+			}
+			.login-html .tab,
+			.login-form .group .label,
+			.login-form .group .button{
+				text-transform:uppercase;
+			}
+			.login-html .tab{
+				font-size:22px;
+				margin-right:15px;
+				padding-bottom:5px;
+				margin:0 15px 10px 0;
+				display:inline-block;
+				border-bottom:2px solid transparent;
+			}
+			.login-html .sign-in:checked + .tab,
+			.login-html .sign-up:checked + .tab{
+				color:#fff;
+				border-color:#1161ee;
+			}
+			.login-form{
+				min-height:345px;
+				position:relative;
+				perspective:1000px;
+				transform-style:preserve-3d;
+			}
+			.login-form .group{
+				margin-bottom:15px;
+			}
+			.login-form .group .label,
+			.login-form .group .input,
+			.login-form .group .button{
+				width:100%;
+				color:#fff;
+				display:block;
+			}
+			.login-form .group .input,
+			.login-form .group .button{
+				border:none;
+				padding:15px 20px;
+				border-radius:25px;
+				background:rgba(255,255,255,.1);
+			}
+			.login-form .group input[data-type="password"]{
+				text-security:circle;
+				-webkit-text-security:circle;
+			}
+			.login-form .group .label{
+				color:#aaa;
+				font-size:12px;
+			}
+			.login-form .group .button{
+				background:#1161ee;
+			}
+			.login-form .group label .icon{
+				width:15px;
+				height:15px;
+				border-radius:2px;
+				position:relative;
+				display:inline-block;
+				background:rgba(255,255,255,.1);
+			}
+			.login-form .group label .icon:before,
+			.login-form .group label .icon:after{
+				content:'';
+				width:10px;
+				height:2px;
+				background:#fff;
+				position:absolute;
+				transition:all .2s ease-in-out 0s;
+			}
+			.login-form .group label .icon:before{
+				left:3px;
+				width:5px;
+				bottom:6px;
+				transform:scale(0) rotate(0);
+			}
+			.login-form .group label .icon:after{
+				top:6px;
+				right:0;
+				transform:scale(0) rotate(0);
+			}
+			.login-form .group .check:checked + label{
+				color:#fff;
+			}
+			.login-form .group .check:checked + label .icon{
+				background:#1161ee;
+			}
+			.login-form .group .check:checked + label .icon:before{
+				transform:scale(1) rotate(45deg);
+			}
+			.login-form .group .check:checked + label .icon:after{
+				transform:scale(1) rotate(-45deg);
+			}
+			.login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm{
+				transform:rotate(0);
+			}
+			.login-html .sign-up:checked + .tab + .login-form .sign-up-htm{
+				transform:rotate(0);
+			}
+
+			.hr{
+				height:2px;
+				margin:60px 0 50px 0;
+				background:rgba(255,255,255,.2);
+			}
+			.foot-lnk{
+				text-align:center;
+			}
+		</style>
+		<div class="login-wrap">
+			<div class="login-html" login-view="components/login.html">
+	
+			</div>
+			<div class="main-wraper pad12 basic-pos" main-view="components/main.html"></div>
+		</div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<div w3-include-html="components/login.html"></div>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/notify.min.js"></script>
+		<script src="https://js.pusher.com/3.2/pusher.min.js"></script>
 	</body>
 
 	<script>
 		var serverUrl = "http://talentchases.com/letstalk/";
-		function includeHTML() {
+		// var serverUrl = "http://192.168.0.100/letstalk/";
+		// Initialise a new Pusher object
+		var pusher = new Pusher('777b8db5ea3e364522ab', {
+			authEndpoint : serverUrl,
+		    encrypted: false,
+		    cluster : 'ap2'
+		});
+		var channel = pusher.subscribe('chat_2');
+		channel.bind('request.created', function(data) {
+			sendMessage(data['message'], 'receiver');
+		});
+
+		function includeHTML(attr) {
 		  var z, i, elmnt, file, xhttp;
 		  /*loop through a collection of all HTML elements:*/
 		  z = document.getElementsByTagName("*");
 		  for (i = 0; i < z.length; i++) {
 		    elmnt = z[i];
 		    /*search for elements with a certain atrribute:*/
-		    file = elmnt.getAttribute("w3-include-html");
+		    file = elmnt.getAttribute(attr);
 		    if (file) {
 		      /*make an HTTP request using the attribute value as the file name:*/
 		      xhttp = new XMLHttpRequest();
@@ -28,7 +201,7 @@
 		          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
 		          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
 		          /*remove the attribute, and call this function once more:*/
-		          elmnt.removeAttribute("w3-include-html");
+		         // elmnt.removeAttribute(attr);
 		          includeHTML();
 		        }
 		      } 
@@ -40,7 +213,12 @@
 		  }
 		}
 
-		includeHTML();
+		if(window.localStorage.getItem('unique_id') === null)
+			includeHTML("login-view");
+		else {
+			includeHTML("main-view");
+			loadUserChats();
+		}
 
 		// signup call
 		jQuery(document).on('submit','.sign-up-htm', function(e){
@@ -62,7 +240,7 @@
 		        success: function( data ) {
 		        	response = JSON.parse(data)
 		        	if(response['isSuccess']){
-		        		ref.find('input').val("");
+		        		ref.find('input').not('input[type="submit"]').val("");
 		        		notify(response['data'], 'success')
 		        		$('.sign-in').trigger('click');
 		        	}
@@ -75,6 +253,54 @@
 			});
 		})
 
+		// sign in
+		$(document).on('submit','.sign-in-htm', function(e){
+			e.preventDefault();
+        	var formData = new FormData(this);
+        	var ref = $(this);
+			$.support.cors=true;
+			$.ajax({
+				url:serverUrl+"user/login",
+				type:"POST",
+				data:formData,
+				contentType: false,
+		        cache: false, 
+		        crossDomain:true,
+		        processData:false,
+		        beforeSend:function(){
+		          
+		        },
+		        success: function( data ) {
+		        	response = JSON.parse(data);
+		        	if(response['isSuccess']){
+		        		notify(response['data']['msg'], 'success');
+		        		$('.login-html').empty();
+		        		includeHTML("main-view");
+		        		window.localStorage.setItem('unique_id', response['data']['token']);
+		        		window.localStorage.setItem('user_id', response['data']['user_id']);
+		        		loadUserChats();
+		        	}
+		        	else {
+		        		notify(response['errors'], 'error');
+		        	}
+		          console.log(data)
+		        },
+		        error:function(data){
+		          console.log(data);
+		        }	
+			});
+		})
+
+		$(document).on('click','.menu-opt .opt-btn', function(e){
+			$('#options').toggle();
+		})
+
+		// logout
+		$(document).on('click','.logout', function(e){
+			localStorage.clear();
+			$(".main-wraper").empty();
+			includeHTML("login-view");
+		})
 
 		function notify(msg, type = 'success'){
 			$.notify(msg, {
@@ -89,10 +315,10 @@
 			  // arrow size in pixels
 			  arrowSize: 5,
 			  // position defines the notification position though uses the defaults below
-			  position: 'top center',
+			  position: 'bottom left',
 			  // default positions
-			  elementPosition: 'top center',
-			  globalPosition: 'top center',
+			  elementPosition: 'top left',
+			  globalPosition: 'top left',
 			  // default style
 			  style: 'bootstrap',
 			  // default class (string or [string])
@@ -108,6 +334,141 @@
 			  // padding between element and notification
 			  gap: 2
 			});
+		}
+
+
+		// back to main 
+		$(document).on('click','.back-to-main', function(e){
+			$('.find-contact').hide();
+			$('.main-listings').show();
+		})
+
+		// open contact 
+		$(document).on('click','.quick-act.wrt-msg', function(e){
+			$('.main-listings').hide();
+			$('.find-contact').show();
+		})
+
+		$(document).on('keyup','input[name="search_friend"]', function(e){
+			var str = $(this).val();
+			if(str.length < 2) return false;
+			$.ajax({
+				url:serverUrl+"user/search",
+				type:"POST",
+				data:{str:str},
+		        cache: false, 
+		        crossDomain:true,
+		        beforeSend:function(){
+		          
+		        },
+		        success: function( data ) {
+		        	response = JSON.parse(data)
+		        	$html = '';
+		        	if(response['isSuccess']){
+		        		$.each(response['data'], function(i, val){
+		        			$html += '<li data-id="'+val.id+'">'+
+		    			'<a><img class="round r50" src="img/Tulips.jpg" /></a>'+
+		    			'<span> '+val.name+'('+val.email+')</span></li>'
+		        		});
+		        	} else 
+		        		$html += '<li>No Record Found</li>';
+
+		        	$('.search-frnd-result').html($html);
+
+		          console.log(data)
+		        },
+		        error:function(data){
+		          console.log(data);
+		        }	
+			});
+		})
+
+		// open user chat
+		$(document).on('click','.open-chat li', function(e){
+			$('.chat-receiver a').find('span').html($(this).find('span').html());
+			$('.chat-receiver a').attr('data-id',$(this).attr('data-id'));
+			getChats($(this).attr('data-id'));
+			$('.friend-chat').show();
+			$('.find-contact, .main-listings').hide();
+
+		})
+
+		//write msg
+		$(document).on('click','.msg-send', function(e){
+			var user_msg = $(this).parents('.chat-window').find('textarea').val();
+			$.ajax({
+				url:serverUrl+"message/send",
+				type:"POST",
+				data:{message:user_msg, uniqueId:window.localStorage.getItem('unique_id'), receiverId:$(this).parents('.friend-chat').find('a').attr('data-id')},
+		        beforeSend:function(){
+		          
+		        },
+		        success: function( data ) {
+		        	data = JSON.parse(data);
+		        	sendMessage(data['data'], 'sender');
+		        }
+			});
+		})
+
+		function loadUserChats(){
+			$.ajax({
+				url:serverUrl+"user/chats",
+				type:"POST",
+				data:{uniqueId:window.localStorage.getItem('unique_id')},
+		        beforeSend:function(){
+		        },
+		        success: function( data ) {
+		        	$html = "";
+		        	response = JSON.parse(data);
+		        	if(response['isSuccess']){
+		        		$.each(response['data'], function(i, val){
+		        			$html += '<li data-id="'+val.friend_id+'">'+
+		    					'<a><img class="round r50" src="img/Tulips.jpg" /></a>'+
+		    					'<span> '+val.friend+'</span><small> '+val.message.substring(0, 35)+'... </small></li>';
+		        		});
+		        		$('#chat').find('.chat-wrapper').html($html);
+		        	}
+		        }
+			});
+		}
+
+		function getChats($friendId){
+			$.ajax({
+				url:serverUrl+"user/chats/"+$friendId,
+				type:"POST",
+				data:{uniqueId:window.localStorage.getItem('unique_id')},
+		        beforeSend:function(){
+		        },
+		        success: function( data ) {
+		        	$html = "";
+		        	response = JSON.parse(data);
+		        	if(response['isSuccess']){
+		        		var position = "text-left";
+		        		$.each(response['data'], function(i, val){
+		        			if(val.sender_id == window.localStorage.getItem('user_id'))
+		        				position = "text-right";
+		        			else 
+		        				position = "text-left"
+		        			$html += '<li class="'+position+'" data-id="'+val.id+'"> '+val.message+'</li>';
+		        		});
+		        		$('.friend-chat').find('.user-chat-wrap').append($html);
+		        	}
+		        }
+			});
+		}
+
+		function sendMessage(data, type){
+			switch(type){
+				case 'sender':
+					if(data['isSuccess']){
+		        		$('.friend-chat').find('.user-chat-wrap').append('<li class="text-right"> '+data['message']+'</li>');
+		        	}
+				break;
+
+				case 'receiver':
+	        		$('.friend-chat').find('.user-chat-wrap').append('<li class="text-left"> '+data['message']+'</li>');
+				break;
+			}
 		}
 </script>
 </html>
