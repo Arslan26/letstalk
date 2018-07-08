@@ -14,12 +14,19 @@
     border-radius: 100%;color: white;}
     .quick-act:hover{border:5px solid #38476f;}
     #options{right:0;left:auto;min-width: 25px;}
-    .user-chat-wrap{list-style-type: none;color:green; background-color: white;padding:12px;
+    .user-chat-wrap, .group-wrapper{list-style-type: none;color:#38476f; background-color: white;padding:12px 0;
     height: 200px; border-radius: 5px; margin-bottom: 2px;    overflow-y: scroll;}
-    .user-chat-wrap li{background-color: #ececec; border: 1px solid #ececec;
-    border-radius: 5px; padding: 2px 5px;margin: 4px 0;width:100%;}
+    .user-chat-wrap li a{background-color: #ececec; border: 1px solid #ececec;
+    border-radius: 5px; padding: 2px 5px;margin: 4px 0;}
+    .user-chat-wrap li{width:100%;padding: 5px 0;}
     .chat-window textarea{padding: 5px 35px 35px 5px;}
     .msg-send{position: absolute; right: 4px; bottom: 28px; background-color: #38476f;}
+    .chat-date a{color: #ffffff!important; background-color: #38476f!important;}
+    .all-users{max-height: 200px; overflow-y: scroll;}
+    .selected{    background-color: #b2b4b9; opacity: .8;}
+    .group-wrapper li small{margin-top: 15px}
+    .modal-wrapper{padding : 25px 35px; border:20px groove #38476f;}
+    .modal-wrapper a {margin: 2px 0;}
 </style>
 <div class="main-listings basic-pos">
 	<div class="top-menu basic-pos">
@@ -45,7 +52,7 @@
 		    <div id="chat" class="tab-pane in active">
 		    	<div class="pad-top-btm chat-wrapper open-chat" style="list-style-type: none;">
 		    		<li>
-		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<a><img class="round r50" src="img/user_icon.jpg" /></a>
 		    			<span>Loading <i class="fa fa-spinner fa-spin"></i></span>
 		    		</li>
 		    	</div>
@@ -54,34 +61,28 @@
 		    <div id="status" class="tab-pane">
 		    	<div class="pad-top-btm" style="list-style-type: none;">
 		    		<li>
-		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<a><img class="round r50" src="img/user_icon.jpg" /></a>
 		    			<span>Status 1</span>
 		    		</li>
 		    		<li>
-		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<a><img class="round r50" src="img/user_icon.jpg" /></a>
 		    			<span>Statu 2</span>
 		    		</li>
 		    		<li>
-		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
+		    			<a><img class="round r50" src="img/user_icon.jpg" /></a>
 		    			<span>Status 3</span>
 		    		</li>
 		    	</div>
+		    	<div class="quick-act create-group"><i class="fa fa-users"></i></div>
 		    </div>
 		    <div id="groups" class="tab-pane">
-		    	<div class="pad-top-btm" style="list-style-type: none;">
+		    	<div class="pad-top-btm group-wrapper" style="list-style-type: none;">
 		    		<li>
-		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
-		    			<span>Group 1</span>
-		    		</li>
-		    		<li>
-		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
-		    			<span>Group 2</span>
-		    		</li>
-		    		<li>
-		    			<a><img class="round r50" src="img/Tulips.jpg" /></a>
-		    			<span>Group 3</span>
+		    			<a><img class="round r50" src="img/group_icon.jpg" /></a>
+		    			<span>No Group</span>
 		    		</li>
 		    	</div>
+		    	<div class="quick-act create-group"><i class="fa fa-users"></i></div>
 		    </div>
 		</div>
 	</div>
@@ -106,23 +107,56 @@
 	</div>
 </div>
 
-
 <!-- chat view -->
 <div class="friend-chat basic-pos" style="display:none">
 	<div class="top-menu basic-pos">
 		<div class="chat-receiver pull-left">
-			<a data-id="" class="back-to-main"><img src="img/Tulips.jpg" class="round r24" />&nbsp;&nbsp;&nbsp; <span>Arslan</span></a>
+			<a data-id="" class="back-to-main"><img src="img/user_icon.jpg" class="round r24" />&nbsp;&nbsp;&nbsp; <span>Arslan</span></a>
 		</div>
 		<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
 		<div class="search pull-right"><a class="pad12"><i class="fa fa-user-plus"></i></a></div>
 	</div>
 	<div class="main-menus chat-window basic-pos pad-top-btm">
     	<div class="pad-top-btm" style="list-style-type: none;">
-    		<div class="user-chat-wrap" style="list-style-type: none;">
+    		<div class="user-chat-wrap" id="user-chat-wrap" style="list-style-type: none;">
 	    		
 		    </div>
     		<textarea class="form-control" placeholder="Write Message"></textarea>
     		<a class="btn msg-send"><i class="fa fa-send"></i></a>
     	</div>
 	</div>
+</div>
+
+<!-- create group -->
+<div class="create-group basic-pos" style="display:none">
+	<div class="top-menu basic-pos">
+		<div class="app-title pull-left">
+			<a class="back-to-main"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;</a> Add Particpants
+		</div>
+		<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
+		<div class="search pull-right"><a class="pad12"><i class="fa fa-user-plus"></i></a></div>
+	</div>
+	<div class="main-menus basic-pos pad-top-btm">
+    	<div class="pad-top-btm" style="list-style-type: none;">
+    		<input type="text" name="group_title" class="form-control" placeholder="Right Group Name Here" />
+    		<div class="search-frnd-result all-users" style="list-style-type: none;">
+				<li>
+					<a><img class="round r50" src="img/user_icon.jpg" /></a>
+					<span>Loading <i class="fa fa-spinner fa-spin"></i></span>
+				</li>
+			</div>
+		    <div class="quick-act create-group-now"><i class="fa fa-send"></i></div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade show chat-msg-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    	<input type="hidden" name="message_id" />
+		<div class="col-xs-12 modal-wrapper">
+		  	
+		</div>
+    </div>
+  </div>
 </div>
