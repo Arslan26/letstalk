@@ -1,7 +1,7 @@
-
-		// var serverUrl = "http://talentchases.com/letstalk/";
+		window.activePage = "#home";
+		var serverUrl = "http://talentchases.com/letstalk/";
 		window.chatDay = "";
-		var serverUrl = "http://192.168.0.100/letstalk/";
+		//var serverUrl = "http://192.168.0.100/letstalk/";
 		// Initialise a new Pusher object
 		var pusher = new Pusher('777b8db5ea3e364522ab', {
 			authEndpoint : serverUrl,
@@ -174,6 +174,7 @@
 		// open contact 
 		$(document).on('click','.quick-act.wrt-msg', function(e){
 			$('.main-listings').hide();
+			window.activePage = '#findContact';
 			$('.find-contact').show();
 		})
 
@@ -181,6 +182,7 @@
 		$(document).on('click','.quick-act.create-group', function(e){
 			$('.main-listings').hide();
 			$('.create-group').show();
+			window.activePage = '#createGroup';
 			getAllUsers();
 		})
 
@@ -223,6 +225,7 @@
 			$('.chat-receiver a').find('span').html($(this).find('span').html());
 			$('.chat-receiver a').attr('data-id',$(this).attr('data-id'));
 			getChats($(this).attr('data-id'));
+			window.activePage = '#userChat';
 			$('.friend-chat').show();
 			$('.find-contact, .main-listings').hide();
 
@@ -414,6 +417,7 @@
 		    switch(target){
 		    	case '#groups':
 		    	 getUserGroups();
+		    	 window.activePage = '#userGroups';
 		    	 break;
 		    }
 		});
@@ -443,6 +447,7 @@
 
 		$(document).on('show.bs.modal', '.chat-msg-modal', function(e){
 			var li = $(e.relatedTarget).parents('li');
+			window.activePage = '#chatMsgModal';
 			$html = '<a onclick="chatMessage(\'remove\')" class="btn btn-sm form-control btn-warning">Remove from Device</a>'+
 	  		'<a onclick="chatMessage(\'forward\')" class="btn btn-sm form-control btn-info">Forward Message</a>';
 			if(li.attr('class') == 'text-right')
@@ -474,3 +479,34 @@
 				});	
 			}
 		}
+
+
+	document.addEventListener("deviceready", onDeviceReady, false);
+
+	function onDeviceReady(){
+	    document.addEventListener("backbutton", function(e){
+	       if(window.activePage == '#home' ){
+	           e.preventDefault();
+	           navigator.app.exitApp();
+	       }
+	       else if(window.activePage == '#userChat') {
+				window.activePage = '';
+				$('.friend-chat').hide();
+				$('.find-contact, .main-listings').show();
+	           // navigator.app.backHistory();
+	       } 
+	       else if(window.activePage == '#findContact'){
+				$('.main-listings').show();
+				$('.find-contact').hide();
+	       } else if(window.activePage == '#createGroup'){
+				$('.main-listings').show();
+				$('.create-group').hide();
+	       }
+	       else if(window.activePage == '#userGroups'){
+        		$('.nav-tabs a[href="#chat"]').tab('show');
+	       }
+	       else if(window.activePage == '#chatMsgModal'){
+	       		$('.chat-msg-modal').modal('hide');
+	       }
+	    }, false);
+	}

@@ -1,7 +1,7 @@
 		window.activePage = "#home";
 		var serverUrl = "http://talentchases.com/letstalk/";
 		window.chatDay = "";
-		// var serverUrl = "http://192.168.0.100/letstalk/";
+		//var serverUrl = "http://192.168.0.100/letstalk/";
 		// Initialise a new Pusher object
 		var pusher = new Pusher('777b8db5ea3e364522ab', {
 			authEndpoint : serverUrl,
