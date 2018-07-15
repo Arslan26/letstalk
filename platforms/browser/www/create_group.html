@@ -1,0 +1,105 @@
+<html>
+	<title>Lets Talk</title>
+	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; img-src * data: content:; script-src * 'unsafe-inline' 'unsafe-eval'">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="login-wrap">
+			<div class="main-wraper pad12 basic-pos">
+								<!-- create group -->
+				<div class="create-group basic-pos">
+					<div class="top-menu basic-pos">
+						<div class="app-title pull-left">
+							<a class="back-to-main"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;</a> Add Particpants
+						</div>
+						<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
+						<div class="search pull-right"><a class="pad12"><i class="fa fa-user-plus"></i></a></div>
+					</div>
+					<div class="main-menus basic-pos pad-top-btm">
+				    	<div class="pad-top-btm" style="list-style-type: none;">
+				    		<input type="text" name="group_title" class="form-control" placeholder="Right Group Name Here" />
+				    		<div class="search-frnd-result all-users" style="list-style-type: none;">
+								<li>
+									<a><img class="round r50" src="img/user_icon.jpg" /></a>
+									<span>Loading <i class="fa fa-spinner fa-spin"></i></span>
+								</li>
+							</div>
+						    <div class="quick-act create-group-now"><i class="fa fa-send"></i></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/notify.min.js"></script>
+		<script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</body>
+
+</html>
+
+
+<script>
+	getAllUsers();
+	function getAllUsers(){
+		$.ajax({
+			url:serverUrl+"users",
+			type:"POST",
+			data:{uniqueId:window.localStorage.getItem('unique_id')},
+	        beforeSend:function(){
+	        },
+	        success: function( data ) {
+	        	$html = "";
+	        	response = JSON.parse(data);
+	        	if(response['isSuccess']){
+	        		$.each(response['data'], function(i, val){
+	        			$html += '<li data-id="'+val.id+'">'+
+	    					'<a><img class="round r50" src="img/user_icon.jpg" /> '+val.name+'</a>'+
+	    					'<label class="checkbox-container"> <input type="checkbox" name="group_user_ids[]" value="'+val.id+'"> <span class="checkmark"></span> </label></li>';
+	        		});
+	        		$('.create-group').find('.all-users').html($html);
+	        	}
+	        }
+		});
+	}
+
+	$(document).on('click','.all-users li', function(e){
+		if ($(this).find('input').is(':checked'))
+			$(this).find('input').prop('checked',false);
+		else	
+			$(this).find('input').prop('checked',true);
+	})
+	$(document).on('click','.create-group-now', function(e){
+		var group_user_ids = $('input[name^=group_user_ids]').map(function(idx, elem) {
+			if ($(elem).is(':checked'))
+		    	return $(elem).val();
+		}).get();
+
+		var group_title = $('input[name="group_title"]').val();
+		if(group_user_ids.length && group_title != ""){
+			createGroup(group_title, group_user_ids);
+		}
+	})
+
+	function createGroup(title, groupUserIds){
+		$.ajax({
+			url:serverUrl+"group/create",
+			type:"POST",
+			data:{uniqueId:window.localStorage.getItem('unique_id'), title:title, groupUsers:JSON.stringify(groupUserIds)},
+	        beforeSend:function(){
+	        },
+	        success: function( data ) {
+	        	$html = "";
+	        	response = JSON.parse(data);
+	        	if(response['isSuccess']){
+	        		window.location.assign('groups.html');
+	        	}
+	        }
+		});
+	}
+</script>

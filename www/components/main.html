@@ -5,6 +5,7 @@
 			<div class="dropdown">
 			  <a class="pad12 opt-btn"><i class="fa fa-ellipsis-v"></i></a>
 			  <div class="dropdown-menu" id="options" aria-labelledby="dropdownMenuLink">
+			    <a href="setting.html" class="dropdown-item">Setting</a>
 			    <a class="dropdown-item logout">Logout</a>
 			  </div>
 
@@ -12,7 +13,6 @@
 		</div>
 		<div class="search pull-right"><a class="pad12"><i class="fa fa-search"></i></a></div>
 	</div>
-			<a href="test.html">Test</a>
 	<div class="main-menus basic-pos pad-top-btm">
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#chat" class="chat-menu">Chat</a></li>
@@ -27,7 +27,7 @@
 		    			<span>Loading <i class="fa fa-spinner fa-spin"></i></span>
 		    		</li>
 		    	</div>
-		    	<div class="quick-act wrt-msg"><i class="fa fa-envelope"></i></div>
+		    	<div class="quick-act wrt-msg"><a href="find_friend.html" style="color:white"><i class="fa fa-envelope"></i></a></div>
 		    </div>
 		    <div id="status" class="tab-pane">
 		    	<div class="pad-top-btm" style="list-style-type: none;">
@@ -59,75 +59,6 @@
 	</div>
 </div>
 
-<!-- find contact view -->
-<div class="find-contact basic-pos" style="display:none">
-	<div class="top-menu basic-pos">
-		<div class="app-title pull-left">
-			<a class="back-to-main"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;</a> Find A Friend
-		</div>
-		<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
-		<div class="search pull-right"><a class="pad12"><i class="fa fa-user-plus"></i></a></div>
-	</div>
-	<div class="main-menus basic-pos pad-top-btm">
-    	<div class="pad-top-btm" style="list-style-type: none;">
-    		<input type="text" name="search_friend" class="form-control" placeholder="Search Here" />
-    		<div class="search-frnd-result open-chat" style="list-style-type: none;">
-	    		
-		    </div>
-    	</div>
-	</div>
-</div>
 
-<!-- chat view -->
-<div class="friend-chat basic-pos" style="display:none">
-	<div class="top-menu basic-pos">
-		<div class="chat-receiver pull-left">
-			<a data-id="" class="back-to-main"><img src="img/user_icon.jpg" class="round r24" />&nbsp;&nbsp;&nbsp; <span>Arslan</span></a>
-		</div>
-		<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
-		<div class="search pull-right"><a class="pad12"><i class="fa fa-user-plus"></i></a></div>
-	</div>
-	<div class="main-menus chat-window basic-pos pad-top-btm">
-    	<div class="pad-top-btm" style="list-style-type: none;">
-    		<div class="user-chat-wrap" id="user-chat-wrap" style="list-style-type: none;">
-	    		
-		    </div>
-    		<textarea class="form-control" placeholder="Write Message"></textarea>
-    		<a class="btn msg-send"><i class="fa fa-send"></i></a>
-    	</div>
-	</div>
-</div>
 
-<!-- create group -->
-<div class="create-group basic-pos" style="display:none">
-	<div class="top-menu basic-pos">
-		<div class="app-title pull-left">
-			<a class="back-to-main"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;</a> Add Particpants
-		</div>
-		<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
-		<div class="search pull-right"><a class="pad12"><i class="fa fa-user-plus"></i></a></div>
-	</div>
-	<div class="main-menus basic-pos pad-top-btm">
-    	<div class="pad-top-btm" style="list-style-type: none;">
-    		<input type="text" name="group_title" class="form-control" placeholder="Right Group Name Here" />
-    		<div class="search-frnd-result all-users" style="list-style-type: none;">
-				<li>
-					<a><img class="round r50" src="img/user_icon.jpg" /></a>
-					<span>Loading <i class="fa fa-spinner fa-spin"></i></span>
-				</li>
-			</div>
-		    <div class="quick-act create-group-now"><i class="fa fa-send"></i></div>
-		</div>
-	</div>
-</div>
 
-<div class="modal fade show chat-msg-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-    	<input type="hidden" name="message_id" />
-		<div class="col-xs-12 modal-wrapper">
-		  	
-		</div>
-    </div>
-  </div>
-</div>

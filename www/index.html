@@ -19,5 +19,108 @@
 		<script src="https://js.pusher.com/3.2/pusher.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
 	</body>
+	<script>
+		
+		// signup call
+		jQuery(document).on('submit','.sign-up-htm', function(e){
+        	e.preventDefault();
+        	var formData = new FormData(this);
+        	var ref = $(this);
+			$.support.cors=true;
+			$.ajax({
+				url:serverUrl+"user/signup",
+				type:"POST",
+				data:formData,
+				contentType: false,
+		        cache: false, 
+		        crossDomain:true,
+		        processData:false,
+		        beforeSend:function(){
+		          
+		        },
+		        success: function( data ) {
+		        	response = JSON.parse(data)
+		        	if(response['isSuccess']){
+		        		ref.find('input').not('input[type="submit"]').val("");
+		        		notify(response['data'], 'success')
+		        		$('.sign-in').trigger('click');
+		        	}
 
+		          console.log(data)
+		        },
+		        error:function(data){
+		          console.log(data);
+		        }	
+			});
+		})
+
+		// sign in
+		$(document).on('submit','.sign-in-htm', function(e){
+			e.preventDefault();
+        	var formData = new FormData(this);
+        	var ref = $(this);
+			$.support.cors=true;
+			$.ajax({
+				url:serverUrl+"user/login",
+				type:"POST",
+				data:formData,
+				contentType: false,
+		        cache: false, 
+		        crossDomain:true,
+		        processData:false,
+		        beforeSend:function(){
+		          
+		        },
+		        success: function( data ) {
+		        	response = JSON.parse(data);
+		        	if(response['isSuccess']){
+		        		notify(response['data']['msg'], 'success');
+		        		$('.login-html').empty();
+		        		includeHTML("main-view");
+		        		window.localStorage.setItem('unique_id', response['data']['token']);
+		        		window.localStorage.setItem('user_id', response['data']['user_id']);
+		        		window.localStorage.setItem('username', response['data']['username']);
+		        		loadUserChats();
+		        	}
+		        	else {
+		        		notify(response['errors'], 'error');
+		        	}
+		          console.log(data)
+		        },
+		        error:function(data){
+		          console.log(data);
+		        }	
+			});
+		})
+
+
+	function loadUserChats(){
+		$.ajax({
+			url:serverUrl+"user/chats",
+			type:"POST",
+			data:{uniqueId:window.localStorage.getItem('unique_id')},
+	        beforeSend:function(){
+	        },
+	        success: function( data ) {
+	        	$html = "";
+	        	response = JSON.parse(data);
+	        	if(response['isSuccess']){
+	        		$.each(response['data'], function(i, val){
+	        			$html += '<li data-id="'+val.friend_id+'" data-name="'+val.friend+'">'+
+	    					'<a><img class="round r50" src="img/user_icon.jpg" />'+
+	    					'<span> '+val.friend+'</span><small> '+val.message.substring(0, 35)+'... </small></a></li>';
+	        		});
+	        		$('#chat').find('.chat-wrapper').html($html);
+	        	}
+	        }
+		});
+	}
+	
+	if(window.localStorage.getItem('unique_id') === null)
+		includeHTML("login-view");
+	else {
+		includeHTML("main-view");
+		loadUserChats();
+	}
+	</script>
 </html>

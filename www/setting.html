@@ -1,0 +1,56 @@
+<html>
+	<title>Lets Talk</title>
+	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; img-src * data: content:; script-src * 'unsafe-inline' 'unsafe-eval'">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="login-wrap">
+			<div class="main-wraper pad12 basic-pos">
+				<!-- find contact view -->
+				<div class="find-contact basic-pos">
+				<div class="top-menu basic-pos">
+					<div class="app-title pull-left">
+						<a class="back-to-main"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;</a> Settings
+					</div>
+					<div class="menus pull-right"><a class="pad12"><i class="fa fa-ellipsis-v"></i></a></div>
+				</div>
+				<div class="main-menus basic-pos pad-top-btm">
+			    	<div class="pad-top-btm search-frnd-result" style="list-style-type: none;">
+					    <li class="acc-name">
+			    			<a data-toggle="modal" data-target=".photo-modal"><img class="round r50" src="img/user_icon.jpg" /></a>
+			    			<span>Loading <i class="fa fa-spinner fa-spin"></i></span>
+			    			<label class=" pull-right" style="position: relative; top: 14px;"><i class="fa fa-pencil"></i></label>
+			    		</li>
+			    	</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/notify.min.js"></script>
+		<script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+		
+	</body>
+
+</html>
+
+<div class="modal fade show chat-msg-modal photo-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-sm">
+    	<div class="modal-content">
+    		<input type="hidden" name="message_id" />
+			<div class="col-xs-12 modal-wrapper">
+			  	<div class="user-img">
+			    	<a><img class="round r50" src="img/user_icon.jpg" /></a>
+			  	</div>
+			</div>
+    	</div>
+  	</div>
+</div>
+<script>
+	$('.acc-name span').html(window.localStorage.getItem('username'));
+</script>

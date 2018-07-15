@@ -1,0 +1,91 @@
+<html>
+	<title>Lets Talk</title>
+	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; img-src * data: content:; script-src * 'unsafe-inline' 'unsafe-eval'">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="login-wrap">
+			<div class="main-wraper pad12 basic-pos">
+				<div class="main-listings basic-pos">
+					<div class="top-menu basic-pos">
+						<div class="app-title pull-left">Lets Talk</div>
+						<div class="menu-opt pull-right">
+							<div class="dropdown">
+							  <a class="pad12 opt-btn"><i class="fa fa-ellipsis-v"></i></a>
+							  <div class="dropdown-menu" id="options" aria-labelledby="dropdownMenuLink">
+							    <a class="dropdown-item logout">Logout</a>
+							  </div>
+
+							</div>
+						</div>
+						<div class="search pull-right"><a class="pad12"><i class="fa fa-search"></i></a></div>
+					</div>
+					<div class="main-menus basic-pos pad-top-btm">
+						<ul class="nav nav-tabs">
+							<li><a data-toggle="tab" href="#chat" class="chat-menu">Chat</a></li>
+							<li><a data-toggle="tab" href="#status" class="chat-menu">Status</a></li>
+							<li class="active"><a data-toggle="tab" href="#groups" class="chat-menu">Groups</a></li>
+						</ul>
+						<div class="tab-content">
+						    <div id="groups" class="tab-pane active">
+						    	<div class="pad-top-btm group-wrapper" style="list-style-type: none;">
+						    		<li>
+						    			<a><img class="round r50" src="img/group_icon.jpg" /></a>
+						    			<span>No Group</span>
+						    		</li>
+						    	</div>
+						    	<div class="quick-act create-group"><i class="fa fa-users"></i></div>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/notify.min.js"></script>
+		<script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</body>
+
+</html>
+
+
+<script>
+	function goBack() {
+	    window.history.back();
+	}
+	getUserGroups();
+	function getUserGroups(){
+		$.ajax({
+			url:serverUrl+"group/getUserGroups",
+			type:"POST",
+			data:{uniqueId:window.localStorage.getItem('unique_id'), user_id:window.localStorage.getItem('user_id')},
+	        beforeSend:function(){
+	        },
+	        success: function( data ) {
+	        	$html = "";
+	        	response = JSON.parse(data);
+	        	if(response['isSuccess']){
+	        		$.each(response['data'], function(i, val){
+						var created_at = new Date(val.created_at);
+	        			$html += '<li data-id="'+val.id+'">'+
+	    					'<a><img class="round r50" src="img/group_icon.jpg" /></a> '+
+	    					val.name+' <small class="pull-right">'+formatAMPM(created_at,'d M')+'</small></li>';
+	        		});
+	        		$('#groups').find('.group-wrapper').html($html);
+	        	}
+	        }
+		});
+	}
+
+	// open create group 
+	$(document).on('click','.quick-act.create-group', function(e){
+		window.location.assign('create_group.html');
+	})
+
+
+</script>

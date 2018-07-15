@@ -214,13 +214,13 @@
 			}
 	.pad12{padding: 12px;}
 	.pad-top-btm {padding-top:12px;padding-bottom: 12px}
-	.basic-pos{position: relative;float:left;width:100%;}
+	.basic-pos{position: relative;float:left;width:100%;min-height: 24px}
 	.nav-tabs li {padding-top: 12px;padding-bottom: 12px;width: 33.3%;text-align: center;}
 	img.round{ border-radius: 100%;}
 	img.r50{width: 50px;height: 50px;}
 	img.r24{width: 24px;height: 24px;}
-	.tab-content li, .search-frnd-result li{border-bottom: 1px solid #38476f;padding: 12px;
-    background-color: white;color: black;}
+	#groups li{border-bottom: 1px solid #bfbfbf; }
+	.tab-content li, .search-frnd-result li{padding: 12px; background-color: white;color: black;}
 	.nav-tabs li.active{border-bottom: 2px solid white;}
 	.quick-act{
       position: absolute;right: 7px;bottom: 30px;padding: 12px;background-color: #38476f;
@@ -228,7 +228,7 @@
     .quick-act:hover{border:5px solid #38476f;}
     #options{right:0;left:auto;min-width: 25px;}
     .user-chat-wrap, .group-wrapper{list-style-type: none;color:#38476f; background-color: white;padding:12px 0;
-    height: 200px; border-radius: 5px; margin-bottom: 2px;    overflow-y: scroll;}
+    height: 275px; border-radius: 5px; margin-bottom: 2px;    overflow-y: scroll;}
     .user-chat-wrap li a{border-radius: 5px;display: inline-block;padding:8px 5px;}
     .user-chat-wrap li.text-left a{background-color: #cef9d9; border: 1px solid #cef9d9;}
     .user-chat-wrap li.text-right a{background-color: #f2f995; border: 1px solid #f2f995;}
@@ -239,6 +239,4 @@
     .all-users{max-height: 200px; overflow-y: scroll;}
     .selected{    background-color: #b2b4b9; opacity: .8;}
     .group-wrapper li small{margin-top: 15px}
-    .modal-wrapper{padding : 2px; border:10px groove #38476f;}
-    .modal-wrapper a {margin: 1px 0;}
     .chat-msg-modal .modal-dialog{margin-top: 60px; max-width: 180px; margin-right: auto; margin-left: auto;}
