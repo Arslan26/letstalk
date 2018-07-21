@@ -1,6 +1,7 @@
 		var serverUrl = "http://talentchases.com/letstalk/";
 		window.chatDay = "";
 		//var serverUrl = "http://192.168.0.100/letstalk/";
+		var imagesUrl = serverUrl+"storage/app/public/"
 		// Initialise a new Pusher object
 		var pusher = new Pusher('777b8db5ea3e364522ab', {
 			authEndpoint : serverUrl,
@@ -176,6 +177,13 @@
 	            return sParameterName[1];
 	        }
 	    }
+	}
+
+	function getImage(url){
+		if(url != "" && url != null && url != 'undefined')
+			return imagesUrl+url;
+		else 
+			return 'img/user_icon.jpg';
 	}
 
 

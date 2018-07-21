@@ -80,6 +80,7 @@
 		        		window.localStorage.setItem('unique_id', response['data']['token']);
 		        		window.localStorage.setItem('user_id', response['data']['user_id']);
 		        		window.localStorage.setItem('username', response['data']['username']);
+		        		window.localStorage.setItem('username', response['data']['avatar']);
 		        		loadUserChats();
 		        	}
 		        	else {
@@ -107,7 +108,7 @@
 	        	if(response['isSuccess']){
 	        		$.each(response['data'], function(i, val){
 	        			$html += '<li data-id="'+val.friend_id+'" data-name="'+val.friend+'">'+
-	    					'<a><img class="round r50" src="img/user_icon.jpg" />'+
+	    					'<a><img class="round r50" src="'+getImage(val.photo)+'" />'+
 	    					'<span> '+val.friend+'</span><small> '+val.message.substring(0, 35)+'... </small></a></li>';
 	        		});
 	        		$('#chat').find('.chat-wrapper').html($html);
