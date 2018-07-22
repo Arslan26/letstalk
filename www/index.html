@@ -80,7 +80,7 @@
 		        		window.localStorage.setItem('unique_id', response['data']['token']);
 		        		window.localStorage.setItem('user_id', response['data']['user_id']);
 		        		window.localStorage.setItem('username', response['data']['username']);
-		        		window.localStorage.setItem('username', response['data']['avatar']);
+		        		window.localStorage.setItem('avatar', response['data']['avatar']);
 		        		loadUserChats();
 		        	}
 		        	else {
@@ -99,12 +99,13 @@
 		$.ajax({
 			url:serverUrl+"user/chats",
 			type:"POST",
+			dataType:'jsonp',
 			data:{uniqueId:window.localStorage.getItem('unique_id')},
 	        beforeSend:function(){
 	        },
-	        success: function( data ) {
+	        success: function( response ) {
 	        	$html = "";
-	        	response = JSON.parse(data);
+	        	// response = JSON.parse(data);
 	        	if(response['isSuccess']){
 	        		$.each(response['data'], function(i, val){
 	        			$html += '<li data-id="'+val.friend_id+'" data-name="'+val.friend+'">'+

@@ -232,9 +232,14 @@
     .user-chat-wrap li a{border-radius: 5px;display: inline-block;padding:8px 5px;}
     .user-chat-wrap li.text-left a{background-color: #cef9d9; border: 1px solid #cef9d9;}
     .user-chat-wrap li.text-right a{background-color: #f2f995; border: 1px solid #f2f995;}
+    /*.user-chat-wrap li.text-right small{width: 100%;float: right}*/
+    .user-chat-wrap li.text-right img{float: right}
+    /*.user-chat-wrap li.text-right span{display: block}*/
     .user-chat-wrap li{width:99%;padding: 2px 0;margin:0 1%;}
-    .chat-window textarea{padding: 5px 35px 35px 5px;}
-    .msg-send{position: absolute; right: 4px; bottom: 28px; background-color: #38476f;}
+    .user-chat-wrap li img{width:50%;display: block}
+    .chat-window textarea{padding: 5px 5px 35px 5px;}
+    .chat-btns a{ background-color: #38476f;}
+    .chat-btns{position: absolute; right: 4px; bottom: 28px;}
     .chat-date a{color: #ffffff!important; background-color: #38476f!important;}
     .all-users{max-height: 200px; overflow-y: scroll;}
     .selected{    background-color: #b2b4b9; opacity: .8;}

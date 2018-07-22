@@ -3,8 +3,32 @@
 
 <button onclick="goBack()">Go Back</button>
 
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
 <script>
-function goBack() {
-    window.history.back();
-}
+		var serverUrl = "http://192.168.0.100/letstalk/";
+	loadUserChats();
+	function loadUserChats(){
+		$.ajax({
+			url:serverUrl+"user/chats/2",
+			type:"POST",
+			data:{uniqueId:'208e2d0f64fb43f210d3b82391c080bd1fb53a03'},
+	        beforeSend:function(){
+	        },
+	        success: function( data ) {
+	        	$html = "";
+	        	response = JSON.parse(data);
+	        	if(response['isSuccess']){
+	        		$.each(response['data'], function(i, val){
+	        			$html += '<li data-id="'+val.friend_id+'" data-name="'+val.friend+'">'+
+	    					'<a><img class="round r50" src="'+getImage(val.photo)+'" />'+
+	    					'<span> '+val.friend+'</span><small> '+val.message.substring(0, 35)+'... </small></a></li>';
+	        		});
+	        		$('#chat').find('.chat-wrapper').html($html);
+	        	}
+	        }
+		});
+	}
 </script>

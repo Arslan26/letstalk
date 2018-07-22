@@ -1,7 +1,7 @@
 <html>
 	<title>Lets Talk</title>
 	<head>
-		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; img-src * data: content:; script-src * 'unsafe-inline' 'unsafe-eval'">
+		<meta http-equiv="Content-Security-Policy" content="default-src *;connect-src *; object-src *; media-src *; style-src * 'unsafe-inline'; img-src * data: content:; script-src * 'unsafe-inline' 'unsafe-eval'">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 		<link rel="stylesheet" href="css/style.css">
@@ -26,7 +26,15 @@
 						    		
 							    </div>
 					    		<textarea class="form-control" placeholder="Write Message"></textarea>
-					    		<a class="btn msg-send"><i class="fa fa-send"></i></a>
+					    		<div class="chat-btns">
+					    			<form class="send-image" style="display: none">
+					    				<input type="file" name="image" accept="image/*" />
+					    				<input type="text" name="receiverId" />
+					    				<input type="text" name="uniqueId" />
+					    			</form>
+					    			<a class="btn btn-sm img-send" onclick="$('input[name=\'image\']').trigger('click')"><i class="fa fa-picture-o"></i></a>
+					    			<a class="btn btn-sm msg-send"><i class="fa fa-send"></i></a>
+					    		</div>
 					    	</div>
 						</div>
 					</div>
@@ -64,15 +72,16 @@
 	getChats(window.friend_id);
 
 	function getChats($friendId){
+		$.support.cors=true;
 		$.ajax({
 			url:serverUrl+"user/chats/"+$friendId,
 			type:"POST",
+  			dataType: 'jsonp',
 			data:{uniqueId:window.localStorage.getItem('unique_id')},
 	        beforeSend:function(){
 	        },
-	        success: function( data ) {
+	        success: function( response ) {
 	        	$html = "";
-	        	response = JSON.parse(data);
 	        	if(response['isSuccess']){
 	        		var position = "text-left";
 	        		$.each(response['data'], function(i, val){
@@ -89,7 +98,12 @@
 	        			}
 	        			else 
 	        				position = "text-right"
-	        			$html += '<li class="'+position+'" data-id="'+val.id+'"><a data-toggle="modal" data-target=".chat-msg-modal"> '+val.message+' <small>'+formatAMPM(created_at)+'</small></a></li>';
+	        			$html += '<li class="'+position+'" data-id="'+val.id+'"><a data-toggle="modal" data-target=".chat-msg-modal"> <span>'+val.message+'</span>';
+
+	        			if(val.file != null && val.file != "")
+	        				$html += '<img src="'+getImage(val.file)+'" ></img>';
+
+	        			$html +=' <small>'+formatAMPM(created_at)+'</small></a></li>';
 	        		});
 	        		$('.friend-chat').find('.user-chat-wrap').append($html);
 	        		// scroll to bottom
@@ -119,6 +133,7 @@
 	        }
 		});
 	})
+
 	
 		$(document).on('show.bs.modal', '.chat-msg-modal', function(e){
 			var li = $(e.relatedTarget).parents('li');
@@ -154,6 +169,38 @@
 				});	
 			}
 		}
+
+	$(document).on('change','input[name="image"]', function(e){
+		if($(this).val() != ""){
+			$(this).parents('form').submit();
+		}
+
+	})
+	$(document).on('submit','form.send-image', function(e){
+		e.preventDefault();
+		$(this).find('input[name="receiverId"]').val(window.friend_id);
+		$(this).find('input[name="uniqueId"]').val(window.localStorage.getItem('unique_id'));
+		var formData = new FormData(this);
+		var ref = $(this);
+		$.ajax({
+			url:serverUrl+"message/sendImage",
+			type:"POST",
+			data:formData,
+			contentType: false,
+	        cache: false, 
+	        crossDomain:true,
+	        processData:false,
+	        beforeSend:function(){
+	        },
+	        success: function( data ) {
+	        	data = JSON.parse(data);
+	        	sendMessage(data['data'], 'sender');
+	        },
+	        error:function(data){
+	        	console.log('test');
+	        }	
+		});
+	})
 	//$(document).ready(function(e){
 	//	console.log(GetURLParameter('friend_name'));
 	//})

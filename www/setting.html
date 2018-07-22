@@ -47,7 +47,7 @@
 			<div class="col-xs-12 modal-wrapper">
 			  	<div class="user-img upload-img">
 					<form class="upload-img" action = "" method="POST" style="display:none">
-						<input type="file" name="avatar" />
+						<input type="file" name="avatar" accept="image/*" />
 						<input type="hidden" name="user_id" />
 						<input type="hidden" name="uniqueId" />
 					</form>
@@ -138,9 +138,9 @@
 	        success: function( data ) {
 	        	response = JSON.parse(data);
 	        	if(response['isSuccess']){
-	        		notify(response['data']['msg'], 'success');
-	        		$('.user-img').attr('src',getImage(response['data']['path']));
-					window.localStorage.setItem('avatar', response['data']['path']);
+	        		notify('Profile Picture Updated', 'success');
+	        		$('.user-img').attr('src',getImage(response['data']));
+					window.localStorage.setItem('avatar', response['data']);
 
 	        	}
 	        	else {
